@@ -60,6 +60,7 @@ class PHPGraphLibPie extends PHPGraphLib
 	protected $pie_legend_y;
 	protected $pie_data_label_space;
 	protected $pie_3D_height;
+	protected $pie_3D_rotation;
 
 	protected $pie_data_max_length = 0;
 	protected $pie_color_pointer = 0;
@@ -77,6 +78,17 @@ class PHPGraphLibPie extends PHPGraphLib
 		'clay', 'pastel_blue_2', 'pastel_yellow', 'silver', 'pastel_green_2',
 		'brown', 'gray', 'pastel_purple', 'olive', 'aqua', 'yellow', 'teal', 'lime'
 	);
+
+	public function __construct($width, $height, $output_file = null, $pie_3D_rotation = 69) 
+	{
+		$this->width = $width;
+		$this->height = $height;
+		$this->output_file = $output_file;
+		$this->pie_3D_rotation = $pie_3D_rotation;
+		$this->initialize();
+		$this->allocateColors();
+	}
+
 
 	protected function calcCoords() 
 	{
@@ -344,6 +356,16 @@ class PHPGraphLibPie extends PHPGraphLib
 			$title_x = ($this->width / 2) - ((strlen($this->title_text) * self::TITLE_CHAR_WIDTH) / 2);
 			imagestring($this->image, 2, $title_x , $title_y , $this->title_text,  $this->title_color);
 		}
+	}
+
+	public function setRotation($rotation)
+	{
+		if (0 <= $rotation && $rotation < 90 ) {
+			$this->pie_3D_rotation = $rotation;
+			return;
+		}
+		
+		$this->error[] = "The rotation must be between 0 (inclusive) and 90 (exclusive) degrees";
 	}
 
 	public function setLabelTextColor($color)
