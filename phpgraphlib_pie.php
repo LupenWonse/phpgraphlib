@@ -47,7 +47,7 @@ class PHPGraphLibPie extends PHPGraphLib
 	const PIE_CENTER_X_OFFSET = 50; //in %
 	const PIE_CENTER_LEGEND_SCALE = 55; //offset in % of existing coords when legend
 	const PIE_WIDTH_PERCENT = 75; //default width % of total width
-	const PIE_HEIGHT_PERCENT = 28; 
+	//const PIE_HEIGHT_PERCENT = 28; 
 	const PIE_LABEL_SCALE = 90; //in % scale width/height if data labels
 	const PIE_LEGEND_SCALE = 64;//in % scale width/height if legend
 
