@@ -92,9 +92,12 @@ class PHPGraphLibPie extends PHPGraphLib
 
 	protected function calcCoords() 
 	{
+		//Rotataion based calculation of the height percentage
+		$pie_height_ratio = cos($this->pie_3D_rotation * 3.14 / 180 );
+		
 		//calc coords of pie center and width/height
 		$this->pie_width = $this->width * (self::PIE_WIDTH_PERCENT / 100);
-		$this->pie_height = $this->width * (self::PIE_HEIGHT_PERCENT / 100);
+		$this->pie_height = $this->pie_width * $pie_height_ratio;
 		$this->pie_center_y = $this->height * (self::PIE_CENTER_Y_OFFSET / 100);
 		$this->pie_center_x = $this->width * (self::PIE_CENTER_X_OFFSET / 100);
 
@@ -113,7 +116,9 @@ class PHPGraphLibPie extends PHPGraphLib
 			$this->pie_height *= self::PIE_LEGEND_SCALE / 100;
 			$this->pie_center_x *= self::PIE_CENTER_LEGEND_SCALE / 100;
 		}
-		$this->pie_3D_height = self::PIE_3D_HEIGHT_PERCENT * ($this->pie_width / 100);	
+		
+		//calculate the 3D thickness based on the angle of rotation
+		$this->pie_3D_height = sin($this->pie_3D_rotation * 3.14 / 180)  * $this->pie_width * self::PIE_3D_HEIGHT_PERCENT / 100;
 	}
 
 	protected function setupData() 
@@ -232,11 +237,12 @@ class PHPGraphLibPie extends PHPGraphLib
 
 	protected function generateDataLabel($value, $arcStart) 
 	{
+		$pi = atan(1.0) * 4.0;
+		
 		//midway if the mid arc angle of the wedge we just drew
 		$midway = ($arcStart - (180 * $value));
 		//adjust for ellipse height/width ratio
-		$skew = self::PIE_HEIGHT_PERCENT / self::PIE_WIDTH_PERCENT;
-		$pi = atan(1.0) * 4.0;
+		$skew = cos($this->pie_3D_rotation * $pi / 180);
 		$theta = ($midway / 180) * $pi;
 		$valueX = $this->pie_center_x + ($this->pie_width / 2 + $this->pie_data_label_space) * cos($theta);
 		$valueY = $this->pie_center_y + ($this->pie_width / 2 + $this->pie_data_label_space) * sin($theta) * $skew;
