@@ -61,7 +61,7 @@ class PHPGraphLibPie extends PHPGraphLib
 	protected $pie_data_label_space;
 	protected $pie_3D_height;
 	protected $pie_3D_rotation;
-
+	protected $pie_explosion;
 	protected $pie_data_max_length = 0;
 	protected $pie_color_pointer = 0;
 	protected $pie_data_array_percents = array();
@@ -79,12 +79,13 @@ class PHPGraphLibPie extends PHPGraphLib
 		'brown', 'gray', 'pastel_purple', 'olive', 'aqua', 'yellow', 'teal', 'lime'
 	);
 
-	public function __construct($width, $height, $output_file = null, $pie_3D_rotation = 69) 
+	public function __construct($width, $height, $output_file = null, $pie_3D_rotation = 69, $pie_explosion = 0) 
 	{
 		$this->width = $width;
 		$this->height = $height;
 		$this->output_file = $output_file;
 		$this->pie_3D_rotation = $pie_3D_rotation;
+		$this->pie_explosion = $pie_explosion;
 		$this->initialize();
 		$this->allocateColors();
 	}
