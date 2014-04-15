@@ -2,7 +2,7 @@
 include('../phpgraphlib.php');
 include('../phpgraphlib_pie.php');
 $graph = new PHPGraphLibPie(400, 400);
-$graph->setRotation(69);
+$graph->setRotation(0);
 $data = array("CBS" => 6.3, "NBC" => 4.5,"FOX" => 2.8, 
 	"ABC" => 2.7, "CW" => 1.4);
 $graph->addData($data);
