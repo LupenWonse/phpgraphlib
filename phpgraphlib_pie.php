@@ -256,8 +256,8 @@ class PHPGraphLibPie extends PHPGraphLib
 		//adjust for ellipse height/width ratio
 		$skew = cos($this->pie_3D_rotation * $pi / 180);
 		$theta = ($midway / 180) * $pi;
-		$valueX = $this->pie_center_x + ($this->pie_width / 2 + $this->pie_data_label_space) * cos($theta);
-		$valueY = $this->pie_center_y + ($this->pie_width / 2 + $this->pie_data_label_space) * sin($theta) * $skew;
+		$valueX = $this->pie_center_x + ($this->pie_width / 2 + $this->pie_data_label_space + $this->pie_explosion) * cos($theta);
+		$valueY = $this->pie_center_y + ($this->pie_width / 2 + $this->pie_data_label_space + $this->pie_explosion) * sin($theta) * $skew;
 		$displayValue = $this->formatPercent($value);
 		$valueArray = $this->dataLabelHandicap($valueX, $valueY, $displayValue, $midway);
 		$valueX = $valueArray[0];
