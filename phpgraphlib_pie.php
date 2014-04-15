@@ -209,14 +209,20 @@ class PHPGraphLibPie extends PHPGraphLib
 	{
 		$this->resetColorPointer();
 		//loop through and create shadaing
-		for ($i = $this->pie_center_y + $this->pie_3D_height; $i > $this->pie_center_y; $i--) {
+		for ($i = $this->pie_3D_height; $i > 0; $i--) {
 			$arcStart = 0;
 			foreach ($this->pie_data_array_percents as $key => $value) {
 				$color = $this->generateNextColor(true); 
 				// generate a darker version of the indexed color
 				// do not draw if the value is zero
 				if (! $value == 0){
-					imagefilledarc($this->image, $this->pie_center_x, $i, $this->pie_width, $this->pie_height, $arcStart, (360 * $value) + $arcStart, $color, IMG_ARC_PIE);
+				
+					//calculate mid-angle for the explosion direction
+					$theta = $arcStart + 360 * $value / 2;
+					$arc_corner_x = $this->pie_center_x + cos($theta*3.14/180) * $this->pie_explosion;
+					$arc_corner_y = $this->pie_center_y + sin($theta*3.14/180) * $this->pie_explosion;
+				
+					imagefilledarc($this->image, $arc_corner_x, $arc_corner_y + $i, $this->pie_width, $this->pie_height, $arcStart, (360 * $value) + $arcStart, $color, IMG_ARC_PIE);
 					$arcStart += 360*$value;
 				}
 			}
@@ -227,7 +233,12 @@ class PHPGraphLibPie extends PHPGraphLib
 			$color = $this->generateNextColor();
 			// do not draw if the value is zero
 			if (! $value == 0){
-				imagefilledarc($this->image, $this->pie_center_x, $this->pie_center_y, $this->pie_width, $this->pie_height, $arcStart, (360*$value)+$arcStart, $color, IMG_ARC_PIE);
+				//calculate mid-angle for the explosion direction
+				$theta = $arcStart + (360*$value) / 2;
+				$arc_corner_x = $this->pie_center_x + cos($theta*3.14/180) * $this->pie_explosion;
+				$arc_corner_y = $this->pie_center_y + sin($theta*3.14/180) * $this->pie_explosion;
+			
+				imagefilledarc($this->image, $arc_corner_x, $arc_corner_y, $this->pie_width, $this->pie_height, $arcStart, (360*$value)+$arcStart, $color, IMG_ARC_PIE);
 				$arcStart += 360 * $value;
 			}
 			if ($this->bool_data_labels) { 
