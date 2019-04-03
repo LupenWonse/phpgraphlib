@@ -378,7 +378,7 @@ class PHPGraphLib {
 		foreach ($this->data_array as $data_set_num => $data_set) {
 			$lineX2 = null;
 			reset($data_set);
-			$xStart = $this->y_axis_x1 + ($this->space_width / 2) + ((key($data_set) - $this->lowest_x) * ($this->bar_width + $this->space_width));
+			$xStart = $this->y_axis_x1 + ($this->space_width / 2) + ((0 - $this->lowest_x) * ($this->bar_width + $this->space_width));
 			foreach ($data_set as $key => $item) {
 				$hideBarOutline = false;
 
@@ -952,18 +952,19 @@ class PHPGraphLib {
 		$low_x = 0;
 		$high_x = 0;
 		$force_set_x = 1;
+        $i = 0;
 		foreach ($this->data_array as $data_set_num => $data_set) {
 			foreach ($data_set as $key => $item) {
 				if ($force_set_x) {
-					$low_x = $key;
-					$high_x = $key;
+					$low_x = $i;
+					$high_x = $i;
 					$force_set_x = 0;
 				}
 				if ($key < $low_x) {
-					$low_x = $key;
+					$low_x = $i;
 				}
 				if ($key > $high_x) {
-					$high_x = $key;
+					$high_x = $i;
 				}
 				if (!is_numeric($item)) {
 					unset($this->data_array[$data_set_num][$key]);
