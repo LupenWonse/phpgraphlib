@@ -923,6 +923,9 @@ class PHPGraphLib {
 
 	protected function displayErrors() 
 	{
+		 // can't count null vars
+		if (is_null($this->error))
+			return;
 		if (count($this->error) > 0) {
 			$lineHeight = 12;
 			$errorColor = imagecolorallocate($this->image, 0, 0, 0);
