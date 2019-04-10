@@ -195,7 +195,7 @@ class PHPGraphLibPie extends PHPGraphLib
             if ($maxChars) {
                 $dataText = substr($dataText, 0, $maxChars);
             }
-            imagestring($this->image, 2, $xValue + (2 * self::PIE_LEGEND_PADDING), $yValue, $dataText, $this->legend_text_color);
+            $this->imagestring($this->image, 2, $xValue + (2 * self::PIE_LEGEND_PADDING), $yValue, $dataText, $this->legend_text_color);
             $count++;
         }
     }
@@ -245,7 +245,7 @@ class PHPGraphLibPie extends PHPGraphLib
         $valueArray = $this->dataLabelHandicap($valueX, $valueY, $displayValue, $midway);
         $valueX = $valueArray[0];
         $valueY = $valueArray[1];
-        imagestring($this->image, 2, $valueX, $valueY, $displayValue, $this->label_text_color);
+        $this->imagestring($this->image, 2, $valueX, $valueY, $displayValue, $this->label_text_color);
     }
 
     protected function formatPercent($input)
@@ -355,7 +355,7 @@ class PHPGraphLibPie extends PHPGraphLib
         } else {
             $title_y = ($topElement / 2) - (self::TITLE_CHAR_HEIGHT / 2);
             $title_x = ($this->width / 2) - ((strlen($this->title_text) * self::TITLE_CHAR_WIDTH) / 2);
-            imagestring($this->image, 2, $title_x, $title_y, $this->title_text, $this->title_color);
+            $this->imagestring($this->image, 2, $title_x, $title_y, $this->title_text, $this->title_color);
         }
     }
 

@@ -59,7 +59,7 @@ class PHPGraphLibStacked extends PHPGraphLib
                 $hideBarOutline = false;
                 $x1 = round($xStart);
                 $x2 = round($xStart + $this->bar_width);
-                
+
                 if ($data_set_num > 0) {
                     //find last set valid value for this dataset incase prior values were not set
                     $found = false;
@@ -129,7 +129,7 @@ class PHPGraphLibStacked extends PHPGraphLib
 
                     //recenter data position if necessary
                     $dataX -= ($this->data_additional_length * self::DATA_VALUE_TEXT_WIDTH) / 2;
-                    imagestring($this->image, 2, $dataX, $dataY, $item, $this->data_value_color);
+                    $this->imagestring($this->image, 2, $dataX, $dataY, $item, $this->data_value_color);
                 }
                 //write x axis value
                 if ($this->bool_x_axis_values) {
@@ -144,7 +144,7 @@ class PHPGraphLibStacked extends PHPGraphLib
                                 $textVertPos = round($this->y_axis_y1 + (strlen($key) * self::TEXT_WIDTH) + self::AXIS_VALUE_PADDING);
                             }
                             $textHorizPos = round($xStart + ($this->bar_width / 2) - (self::TEXT_HEIGHT / 2));
-                            imagestringup($this->image, 2, $textHorizPos, $textVertPos, $key, $this->x_axis_text_color);
+                            $this->imagestringup($this->image, 2, $textHorizPos, $textVertPos, $key, $this->x_axis_text_color);
                         } else {
                             if ($this->bool_all_negative) {
                                 //we must put values above 0 line
@@ -156,7 +156,7 @@ class PHPGraphLibStacked extends PHPGraphLib
                             }
                             //horizontal data keys
                             $textHorizPos = round($xStart + ($this->bar_width / 2) - ((strlen($key) * self::TEXT_WIDTH) / 2));
-                            imagestring($this->image, 2, $textHorizPos, $textVertPos, $key, $this->x_axis_text_color);
+                            $this->imagestring($this->image, 2, $textHorizPos, $textVertPos, $key, $this->x_axis_text_color);
                         }
                     }
                 }
