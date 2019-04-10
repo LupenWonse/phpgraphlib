@@ -117,6 +117,7 @@ class PHPGraphLib
     protected $bool_gradient_colors_found = array();
     protected $bool_y_axis_setup = false;
     protected $bool_x_axis_setup = false;
+    protected $bool_use_ttf = false;
 
     //color vars
     protected $background_color;
@@ -202,7 +203,7 @@ class PHPGraphLib
     protected $legend_swatch_outline_color;
     protected $legend_titles = array();
 
-    protected $ttf_font = null;
+    protected $ttf_font;
 
     public function __construct($width, $height, $output_file = null, $ttf_font = self::DEFAULT_TTF_FONT)
     {
@@ -223,6 +224,9 @@ class PHPGraphLib
 
         $this->image = @imagecreate($this->width, $this->height)
             or die("Cannot Initialize new GD image stream - Check your PHP setup");
+
+        //Check for FreeType Support
+        $this->bool_use_ttf = gd_info()["FreeType Support"];
     }
 
     public function createGraph()
@@ -1651,7 +1655,7 @@ class PHPGraphLib
     {
         $correction = 10;
         $size = $font_size + 5.5;
-        if ($this->ttf_font !== null) {
+        if ($this->bool_use_ttf) {
             $angle = $vertical ? 90 : 0;
             $xValue += $vertical ? $correction : 0;
             $yValue += $vertical ? 0 : $correction;
