@@ -50,6 +50,9 @@ class PHPGraphLib
     const DATA_VALUE_TEXT_WIDTH = 6;
     const DATA_VALUE_TEXT_HEIGHT = 12;
 
+    //Set default TTF font
+    const DEFAULT_TTF_FONT = '../fonts/arial.ttf';
+
     //padding between axis and value displayed
     const AXIS_VALUE_PADDING = 5;
 
@@ -201,11 +204,12 @@ class PHPGraphLib
 
     protected $ttf_font = null;
 
-    public function __construct($width, $height, $output_file = null)
+    public function __construct($width, $height, $output_file = null, $ttf_font = self::DEFAULT_TTF_FONT)
     {
         $this->width = $width;
         $this->height = $height;
         $this->output_file = $output_file;
+        $this->ttf_font = $ttf_font;
         $this->initialize();
         $this->allocateColors();
     }
